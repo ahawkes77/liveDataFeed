@@ -1,0 +1,83 @@
+var dataList = [];
+
+async function getData() 
+    {
+        //await the response of the fetch call
+       let response = await fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_month.geojson');
+        //proceed once the first promise is resolved.
+       let data = await response.json()
+        //proceed only when the second promise is resolved
+        return data;
+    }
+
+function pushData(x) {
+    getData()
+    .then(data => dataList.push(data.features[x].properties.place))
+}
+
+function test(x) {
+    getData()
+    .then(data => writeData("There was an earthquake of " + data.features[x].properties.mag + " magnitude, " + data.features[x].properties.place))
+}
+
+function iterateData(x) {
+    for (i=0; i<x; i++) {
+        test(i);
+        pushData(i);
+        }
+    }
+    
+    iterateData(20);
+
+
+
+
+
+
+
+// getData()
+// .then(data => writeData(data.features[0].properties.place));
+
+
+// function iterateData(x) {
+//     for(i=0; i<x; i++) {
+//         getData()
+//         .then(data => writeData("There was an earthquake of " + data.features[i].properties.mag + " magnitude, " + data.features[i].properties.place))
+//     }
+// }
+
+// iterateData(10);
+
+
+
+
+// function testWrite(x) {
+//     for (i=0; i<x; i++) {
+//       getData()
+//           .then(data => console.log("There was an earthquake of " + data.features[i].properties.mag + " magnitude, " + data.features[i].properties.place))
+//     }
+//   }
+
+//   testWrite(2);
+
+
+
+// getData()
+// .then(data => writeData("There was an earthquake of " + data.features[0].properties.mag + " magnitude, " + data.features[0].properties.place))
+
+// getData()
+// .then(data => writeData("There was an earthquake of " + data.features[1].properties.mag + " magnitude, " + data.features[1].properties.place))
+
+// getData()
+// .then(data => writeData("There was an earthquake of " + data.features[2].properties.mag + " magnitude, " + data.features[2].properties.place))
+
+// getData()
+// .then(data => writeData("There was an earthquake of " + data.features[3].properties.mag + " magnitude, " + data.features[3].properties.place))
+
+// getData()
+// .then(data => writeData("There was an earthquake of " + data.features[4].properties.mag + " magnitude, " + data.features[4].properties.place))
+
+// getData()
+// .then(data => writeData("There was an earthquake of " + data.features[5].properties.mag + " magnitude, " + data.features[5].properties.place))
+
+
